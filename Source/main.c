@@ -86,7 +86,7 @@ extern int find_pid_by_name( char* ProcName, int* foundpid);
 void send_signal_to_python_process(int signal) {
     int i, rv;
     if (pid_count == 0) {
-        rv = find_pid_by_name( "python3.5", py_pids);
+        rv = find_pid_by_name( "python3.7", py_pids);
         for(i=0; py_pids[i] != 0; i++) {
             log2file("found python pid: %d\n", py_pids[i]);
             pid_count++;
@@ -324,7 +324,7 @@ int main(int argc, char** argv) {
 
     load_python_view();
     while (1) {
-        n = epoll_wait(epfd, events, 10, 15);
+        n = epoll_wait(epfd, events, 10, -1);
 
         for (i = 0; i < n; ++i) {
             if (events[i].data.fd == ev_d0.data.fd) {
